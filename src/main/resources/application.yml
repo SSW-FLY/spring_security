@@ -1,2 +1,9 @@
 server:
   port: 8081
+
+spring:
+  datasource:
+    url: ${JDBC_URL:jdbc:mysql://10.16.2.5:3306/hma1?useUnicode=true&characterEncoding=utf8}
+    username: ${DB_USER:hma}
+    password: ${DB_PASS:hma}
+    driver-class-name: com.mysql.jdbc.Driver
