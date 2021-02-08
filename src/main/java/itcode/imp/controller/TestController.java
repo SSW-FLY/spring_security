@@ -5,13 +5,11 @@ import cn.smallbun.screw.core.engine.EngineConfig;
 import cn.smallbun.screw.core.engine.EngineFileType;
 import cn.smallbun.screw.core.engine.EngineTemplateType;
 import cn.smallbun.screw.core.execute.DocumentationExecute;
-import cn.smallbun.screw.core.process.ProcessConfig;
 import itcode.imp.util.ScrewUtil;
-import java.util.Arrays;
-import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +23,9 @@ public class TestController {
 
     @Resource
     private ApplicationContext applicationContext;
+
+    @Resource
+    private UserDetailsService userDetailsService;
 
     @GetMapping("/api/projects/hma")
     public String test() {

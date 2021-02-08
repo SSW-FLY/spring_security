@@ -11,6 +11,6 @@ import org.springframework.stereotype.Component;
 public class UserDao {
 
     public SysUser getUser(){
-        return SysUser.builder().username("yc").password("123").build();
+        return SysUser.builder().username("yc").password("1234").build();
     }
 }
