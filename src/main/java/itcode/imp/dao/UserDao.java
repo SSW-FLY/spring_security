@@ -1,6 +1,10 @@
 package itcode.imp.dao;
 
 import itcode.imp.entity.SysUser;
+import java.util.List;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,7 +14,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDao {
 
-    public SysUser getUser(){
-        return SysUser.builder().username("yc").password("1234").build();
+    public SysUser getUser() {
+        List<GrantedAuthority> authorities = AuthorityUtils
+            .commaSeparatedStringToAuthorityList("role");
+        return SysUser.builder().username("yc").password(new BCryptPasswordEncoder().encode("123")).authorities(authorities).build();
     }
 }

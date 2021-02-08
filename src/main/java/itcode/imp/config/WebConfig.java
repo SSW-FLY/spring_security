@@ -23,12 +23,11 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        String encode = new BCryptPasswordEncoder().encode("123");
-        auth.inMemoryAuthentication().withUser("yc").password(encode).roles("admin","user");
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

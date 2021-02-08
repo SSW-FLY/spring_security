@@ -26,12 +26,31 @@ public class SysUser implements UserDetails {
 
     private List<GrantedAuthority> authorities;
 
-    private boolean accountNonExpired;
+    private boolean accountNonExpired = true;
 
-    private boolean accountNonLocked;
+    private boolean accountNonLocked = true;
 
-    private boolean credentialsNonExpired;
+    private boolean credentialsNonExpired = true;
 
-    private boolean enabled;
+    private boolean enabled = true;
 
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
