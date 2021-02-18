@@ -37,7 +37,9 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
                 .loginPage("")
+                .loginProcessingUrl("")
                 .defaultSuccessUrl("")
-                .and();
+                .and()
+                .authorizeRequests();
     }
 }
