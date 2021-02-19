@@ -36,10 +36,16 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("")
-                .loginProcessingUrl("")
-                .defaultSuccessUrl("")
-                .and()
-                .authorizeRequests();
+            .loginPage("")
+            .loginProcessingUrl("")
+            .defaultSuccessUrl("")
+            .and()
+            .authorizeRequests()
+            .antMatchers("")
+            .permitAll()
+            .anyRequest()
+            .authenticated()
+            .and()
+            .antMatcher("");
     }
 }
