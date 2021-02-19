@@ -33,19 +33,29 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * 路径必须"/"开头
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.formLogin()
-//            .loginPage("")
-//            .loginProcessingUrl("")
-//            .defaultSuccessUrl("")
-//            .and()
-//            .authorizeRequests()
-//            .antMatchers("")
-//            .permitAll()
-//            .anyRequest()
-//            .authenticated()
-//            .and()
-//            .antMatcher("");
+
+        //设置自定义的登录页面，特定权限访问和
+        http.formLogin()
+            .loginPage("/login.html")
+            .loginProcessingUrl("/user/login")
+            .defaultSuccessUrl("/success.html").permitAll()
+            .and()
+            .authorizeRequests()
+            .antMatchers("/test/line", "/test/hello").permitAll()
+            .antMatchers("/test/index").hasRole("sale")
+            .anyRequest().authenticated().and().csrf().disable();
+
+        //设置登出，注销
+        http.logout().logoutUrl("/logout").logoutSuccessUrl("/test/hello").permitAll();
+
+        //自定义403跳转页面
+        http.exceptionHandling().accessDeniedPage("/unauth.html");
     }
 }
