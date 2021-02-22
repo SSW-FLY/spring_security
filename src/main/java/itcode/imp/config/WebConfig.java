@@ -1,5 +1,6 @@
 package itcode.imp.config;
 
+import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.Resource;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 /**
  * @author imp
@@ -22,6 +25,9 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private UserDetailsService userDetailsService;
 
+    @Resource
+    private DataSource dataSource;
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -33,8 +39,18 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        //配置是否自动生成表
+        jdbcTokenRepository.setCreateTableOnStartup(true);
+        return jdbcTokenRepository;
+    }
+
     /**
      * 路径必须"/"开头
+     *
      * @param http
      * @throws Exception
      */
@@ -57,5 +73,11 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 
         //自定义403跳转页面
         http.exceptionHandling().accessDeniedPage("/unauth.html");
+        //自动登录配置
+        http.rememberMe()
+            .tokenRepository(persistentTokenRepository())
+            //设置有效时长，单位是秒
+            .tokenValiditySeconds(60)
+            .userDetailsService(userDetailsService);
     }
 }
