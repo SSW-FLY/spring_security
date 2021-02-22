@@ -14,7 +14,6 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
  * @author imp
  * @date 2021/2/22
  */
-@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
