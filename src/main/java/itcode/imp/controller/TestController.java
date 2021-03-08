@@ -5,10 +5,12 @@ import cn.smallbun.screw.core.engine.EngineConfig;
 import cn.smallbun.screw.core.engine.EngineFileType;
 import cn.smallbun.screw.core.engine.EngineTemplateType;
 import cn.smallbun.screw.core.execute.DocumentationExecute;
+import itcode.imp.entity.TestEvent;
 import itcode.imp.util.ScrewUtil;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +28,9 @@ public class TestController {
 
     @Resource
     private UserDetailsService userDetailsService;
+
+    @Resource
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @GetMapping("/api/projects/hma")
     public String test() {
@@ -47,6 +52,13 @@ public class TestController {
 
         new DocumentationExecute(test).execute();
 
+    }
+
+    @GetMapping("/api/test/event")
+    public void event() {
+        System.out.println("---发布事件---");
+        applicationEventPublisher.publishEvent(new TestEvent(this, "我是哈哈"));
+        System.out.println("事件发布完成");
     }
 
 }
