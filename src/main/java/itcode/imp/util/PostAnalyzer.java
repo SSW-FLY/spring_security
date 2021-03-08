@@ -9,9 +9,10 @@ import itcode.imp.entity.PostNode;
 public class PostAnalyzer {
 
     private final static String RIGHT = "(";
-    private final static String LEGTH = ")";
+    private final static String LENGTH = ")";
 
     public static PostNode createTree(String str) {
         return new PostNode();
     }
+
 }
