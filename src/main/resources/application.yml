@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: ${JDBC_URL:jdbc:mysql://10.16.2.5:3306/hma1?useUnicode=true&characterEncoding=utf8}
-    username: ${DB_USER:hma}
-    password: ${DB_PASS:hma}
+    url: ${JDBC_URL:jdbc:mysql://localhost:3306/yc?useUnicode=true&characterEncoding=utf8}
+    username: ${DB_USER:imp}
+    password: ${DA_PASS:root123}
     driver-class-name: com.mysql.jdbc.Driver
