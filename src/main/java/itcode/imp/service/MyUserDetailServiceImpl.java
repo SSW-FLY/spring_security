@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @date 2021/5/24
  */
 @Service
-public class MyUserDetailService implements UserDetailsService {
+public class MyUserDetailServiceImpl implements UserDetailsService {
 
 
     @Resource
@@ -27,6 +27,6 @@ public class MyUserDetailService implements UserDetailsService {
         user.setUserName(username);
         user.setPassword(this.passwordEncoder.encode("123"));
         return new User(username,user.getPassword(),user.isEnabled(),user.isAccountNonExpired(),user.isCredentialsNonExpired(),user.isAccountNonLocked(),
-            AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+            AuthorityUtils.commaSeparatedStringToAuthorityList("user"));
     }
 }
