@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(myAuthenticationFailureHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login.html").permitAll().anyRequest().authenticated()
+                .antMatchers("/login.html","/v1/hypers-proxy/customer/off-line/files").permitAll().anyRequest().authenticated()
                 .and()
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
